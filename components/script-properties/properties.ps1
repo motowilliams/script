@@ -2,12 +2,12 @@
 Framework "4.5.2"
 properties {
     $baseDirectory = Resolve-Path .\
-    $sourceDirectory = "$baseDirectory\$srcPath"
+    $sourceDirectory = "$baseDirectory\#_srcPath_#"
 
-    $company = "$companyName"
-    $product = "$productName"
+    $company = "#_companyName_#"
+    $product = "#_productName_#"
 
-    $outputDirectory = "$baseDirectory\$artifactsPath"
+    $outputDirectory = "$baseDirectory\#_artifactsPath_#"
     $packagesDirectory = "$sourceDirectory\packages"
     $packagesOutputDirectory = "$outputDirectory\packages"
 
@@ -24,6 +24,6 @@ properties {
     $nugetExe = "$sourceDirectory\.nuget\nuget.exe"
 
     # database
-    $databaseServer = "localhost\sqlexpress2014"
+    $databaseServer = "localhost\sqlexpress2016"
     $integratedSecurity = "Integrated Security=True"
 }
