@@ -1,10 +1,10 @@
 param(
     $taskList=@('Default'),
     $version="1.0.0",
-    [switch]$runOctoPack
+    [switch]$enablePackager
 )
 
-$nugetDirectory = ".\src\.nuget"
+$nugetDirectory = ".\#_srcPath_#\.nuget"
 $nugetPath = Join-Path $nugetDirectory "nuget.exe"
 if((Test-Path -Path $nugetPath) -eq $false){
     Write-Host "Downloading nuget to $nugetDirectory"
@@ -17,7 +17,7 @@ if((Test-Path -Path $nugetPath) -eq $false){
     }
 }
 
-$psakePath = ".\tools\psake\4.6.0\psake.psm1"
+$psakePath = ".\#_toolsPath_#\psake\4.6.0\psake.psm1"
 if((Test-Path -Path $psakePath) -eq $false){
     Write-Host "Psake module missing"
     Write-Host "Updating package provider"
@@ -32,7 +32,7 @@ if((Test-Path -Path $psakePath) -eq $false){
 Remove-Module [p]sake
 Import-Module $psakePath
 
-# call default.ps1 with properties
-Invoke-Psake -buildFile ".\default.ps1" -taskList $taskList -properties @{ "version" = $version; "runOctoPack" = $runOctoPack; }
+# call #_buildScript_# with properties
+Invoke-Psake -buildFile ".\#_buildScript_#" -taskList $taskList -properties @{ "version" = $version; "enablePackager" = $enablePackager; }
 
 if($psake.build_success) { exit 0 } else { exit 1 }
